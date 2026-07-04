@@ -85,7 +85,9 @@ export default function App() {
     try {
       await signInWithPopup(auth, googleProvider)
     } catch (e) {
-      setAuthError(`No se pudo iniciar sesión (${e.code || e.message}).`)
+      if (e.code !== 'auth/popup-closed-by-user') {
+        setAuthError('No se pudo iniciar sesión. Intenta de nuevo.')
+      }
     }
   }
 
